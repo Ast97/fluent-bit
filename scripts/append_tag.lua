@@ -1,5 +1,9 @@
-function append_tag(tag, timestamp, record)
-    new_record = record
-    new_record["tag"] = tag
-    return 1, timestamp, new_record
+function transform(tag, timestamp, record)
+    if record["kubernetes"]
+    then
+        new_record = {}
+        new_record["namespace"] = record["kubernetes"]["namespace_name"]
+        new_record["pod"] = record["kubernetes"]["pod_name"]
+    end
+    return 2, timestamp, new_record
 end
